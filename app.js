@@ -1,10 +1,10 @@
 //jshint esversion:6
-
+require('dotenv').config();
 const express = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-// const { urlencoded } = require("body-parser");
+const encrypt = require("mongoose-encryption");
 
 const app = express();
 
@@ -16,10 +16,13 @@ app.use(bodyParser.urlencoded({
 
 mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true , useUnifiedTopology: true});
 
-const userSchema = {
+const userSchema = new mongoose.Schema({
     email: String,
     password: String
-};
+});
+
+
+userSchema.plugin(encrypt, { secret: process.env.SECRET , encryptedFields: ["password"] });
 
 const User = new mongoose.model("User", userSchema);
 
@@ -73,5 +76,5 @@ app.route("/register")
 
 
 app.listen(3000, function(){
-    console.log("Server started on posrt 3000.");
+    console.log("Server started on port 3000.");
 });
