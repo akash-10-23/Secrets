@@ -1,6 +1,6 @@
 # Secrets
 
-This Web app allows user to submit thier secrets anonymously.
+This Web app allows user to submit their secrets anonymously.
 
 **For Register/Log in following methods can be used:**
 1. Using email and password.
